@@ -76,3 +76,25 @@ sapply(NI_Postcodes,na_count)
 #missing_values <- aggr(NI_Postcodes,
 #                       prop = FALSE,
 #                       numbers = TRUE)
+
+# Move column last column Identifier to beginning(first column) in the data frame
+NI_Postcodes <- NI_Postcodes[,c(15,1:14)]
+
+str(NI_Postcodes, strict.width = "cut")
+
+# Create Limavady dataset
+Limavady_data <- NI_Postcodes[ grepl("*LIMAVADY*", NI_Postcodes$Locality
+                                     , ignore.case = TRUE) |
+                                 grepl("*LIMAVADY*", NI_Postcodes$Townland
+                                       , ignore.case = TRUE) |
+                                 grepl("*LIMAVADY*", NI_Postcodes$Town
+                                       , ignore.case = TRUE)
+                                 , ]
+
+str(Limavady_data, strict.width = "cut")
+
+# Write Limavady data frame to CSV
+write.csv(Limavady_data, file = "Limavady.csv", row.names = FALSE)
+
+# Write Modifed data frame NI_Postcodes to CSV
+write.csv(NI_Postcodes, file = "CleanNIPostcodeData.csv", row.names = FALSE)
