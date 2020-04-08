@@ -143,9 +143,9 @@ par(mfrow=c(1,2))
 par(cex.axis=.7)
 
 #Plot Belfast crime frequency sort by crime type count
-plot(x = sort(table(subset(random_crime_sample,City.Town.Village=="BELFAST", 
+barplot(height = sort(table(subset(random_crime_sample,City.Town.Village=="BELFAST", 
                            select = c(Crime.type))), decreasing = TRUE),
-     type = "h", col = "Blue", main = "Belfast crime frequency",
+     col = "Blue", main = "Belfast crime frequency",
      xlab = "Crime type",
      ylab = "Frequency",
      las = 2
@@ -153,11 +153,12 @@ plot(x = sort(table(subset(random_crime_sample,City.Town.Village=="BELFAST",
      )
 
 #Plot Derry crime frequency sort by crime type count
-plot(x = sort(table(subset(random_crime_sample,City.Town.Village=="LONDONDERRY", 
+barplot(height = sort(table(subset(random_crime_sample,City.Town.Village=="LONDONDERRY", 
                            select = c(Crime.type))), decreasing = TRUE),
-     type = "h", col = "Blue", main = "Derry crime frequency",
+     col = "Blue", main = "Derry crime frequency",
      xlab = "Crime type",
      ylab = "Frequency",
      las = 2
      #,ylim = c(0,500)
      )
+
