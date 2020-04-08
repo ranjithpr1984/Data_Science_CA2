@@ -135,3 +135,29 @@ str(random_crime_sample, strict.width = "cut")
 # Write random crime sample data frame to CSV
 write.csv(random_crime_sample, file = "random_crime_sample.csv"
           , row.names = FALSE)
+
+# Setup figure property to display 2 charts side by side
+par(mfrow=c(1,2))
+
+#Reduce the font size axis values to ensure all axis values are displayed
+par(cex.axis=.7)
+
+#Plot Belfast crime frequency sort by crime type count
+plot(x = sort(table(subset(random_crime_sample,City.Town.Village=="BELFAST", 
+                           select = c(Crime.type))), decreasing = TRUE),
+     type = "h", col = "Blue", main = "Belfast crime frequency",
+     xlab = "Crime type",
+     ylab = "Frequency",
+     las = 2
+     #,ylim = c(0,500)
+     )
+
+#Plot Derry crime frequency sort by crime type count
+plot(x = sort(table(subset(random_crime_sample,City.Town.Village=="LONDONDERRY", 
+                           select = c(Crime.type))), decreasing = TRUE),
+     type = "h", col = "Blue", main = "Derry crime frequency",
+     xlab = "Crime type",
+     ylab = "Frequency",
+     las = 2
+     #,ylim = c(0,500)
+     )
