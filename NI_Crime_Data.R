@@ -85,20 +85,27 @@ random_crime_sample <- AllNICrimeData_tab[sample(.N, 5000)]
 # Load CSV CleanNIPostcodeData.csv to data frame NIPostcode
 NIPostcode <- read.csv("CleanNIPostcodeData.csv")
 
-# Function to find Town from NIPostcode using location
+NI_street_town <- unique(subset(NIPostcode,select = c("Primary_Thorfare",
+                                                      "Alt_Thorfare",
+                                                      "Secondary_Thorfare",
+                                                      "Town")))
+
+nrow(NI_street_town)
+
+# Function to find Town from NI_street_town using location
 find_a_town <- function(p_location) {
   indx <- grep(p_location,
-               NIPostcode$Primary_Thorfare,
+               NI_street_town$Primary_Thorfare,
                ignore.case = TRUE)
   if(length(indx) == 0)
     indx <- grep(p_location,
-                 NIPostcode$Alt_Thorfare,
+                 NI_street_town$Alt_Thorfare,
                  ignore.case = TRUE)
   if(length(indx) == 0)
     indx <- grep(p_location,
-                 NIPostcode$Secondary_Thorfare,
+                 NI_street_town$Secondary_Thorfare,
                  ignore.case = TRUE)
-  return(as.character(NIPostcode[indx[1],11]))
+  return(as.character(NI_street_town[indx[1],4]))
 }
 
 #Create and pupulate field Town in random sample crime data set
@@ -143,8 +150,8 @@ par(mfrow=c(1,2))
 par(cex.axis=.7)
 
 #Plot Belfast crime frequency sort by crime type count
-barplot(height = sort(table(subset(random_crime_sample,City.Town.Village=="BELFAST", 
-                           select = c(Crime.type))), decreasing = TRUE),
+barplot(height = sort(table(subset(random_crime_sample,`City-Town-Village`=="BELFAST", 
+                           select = c(`Crime type`))), decreasing = TRUE),
      col = "Blue", main = "Belfast crime frequency",
      xlab = "Crime type",
      ylab = "Frequency",
@@ -153,8 +160,8 @@ barplot(height = sort(table(subset(random_crime_sample,City.Town.Village=="BELFA
      )
 
 #Plot Derry crime frequency sort by crime type count
-barplot(height = sort(table(subset(random_crime_sample,City.Town.Village=="LONDONDERRY", 
-                           select = c(Crime.type))), decreasing = TRUE),
+barplot(height = sort(table(subset(random_crime_sample,`City-Town-Village`=="LONDONDERRY", 
+                           select = c(`Crime type`))), decreasing = TRUE),
      col = "Blue", main = "Derry crime frequency",
      xlab = "Crime type",
      ylab = "Frequency",
