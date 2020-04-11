@@ -127,7 +127,7 @@ add_town_data <- function(p_town) {
 }
 
 # Create and Populate field Population in random sample dataset
-random_crime_sample$Population <- sapply(tmp$Town, add_town_data)
+random_crime_sample$Population <- sapply(random_crime_sample$Town, add_town_data)
 nrow(random_crime_sample)
 str(random_crime_sample, strict.width = "cut")
 
